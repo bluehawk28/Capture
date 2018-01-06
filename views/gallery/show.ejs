@@ -1,0 +1,60 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row center">
+        <!--<div class="col-md-3">-->
+        <!--    <p class="lead">Capture</p>-->
+        <!--    <div class="list-group">-->
+        <!--        <li class="list-group-item active">Info 1</li>-->
+        <!--        <li class="list-group-item">Info 2</li>-->
+        <!--        <li class="list-group-item">Info 3</li>-->
+        <!--    </div>-->
+        <!--</div>-->
+        <div class="col-md-8">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= gallery.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">
+                            <%date = new Date();%>
+                              <%=year = date.toDateString();%>
+                        </h4>
+                    
+                    <h4><a href=""><%= gallery.caption %></a></h4>
+                    <p>
+                        <strong><em><%= gallery.author.username %></em></strong>
+                        <span class="pull-right"><em><%=  gallery.location; %></em></span>
+                    </p>
+                    <% if(currentUser && gallery.author.id.equals(currentUser._id)){ %>
+                    <a class="btn btn-xs btn-warning" href="/gallery/<%= gallery.id %>/edit">Edit Post</a> 
+                    <form class="deleteForm" action="/gallery/<%= gallery.id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-xs btn-danger">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <p><a class="btn btn-success" href="/gallery/<%= gallery._id%>/comments/new">Add Comment</a></p>
+                </div>
+                <hr>
+                <% gallery.comments.forEach(function(comment){ %>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong><%= comment.author.username %></strong>
+                        <span class="pull-right">10 days ago</span>
+                        <p>
+                            <%= comment.text %>
+                        </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" href="/gallery/<%= gallery._id %>/comments/<%= comment._id %>/edit ">Edit</a> 
+                            <form class="deleteForm" action="/gallery/<%= gallery._id%>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                            <% } %>
+                            </form>
+                    </div>
+                </div>
+<% });%>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>

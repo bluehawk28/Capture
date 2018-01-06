@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to Capture</h1>
+            <p>Share your best captures.</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/gallery/new">Add New Capture</a>
+            </p>
+        </div>
+    </header>
+    
+    <div>
+    <div class="row text-center" style="display: flex; flex-wrap: wrap;" >
+            <% listGalleries.forEach(function(gallery){ %>
+                <div class="col-md-3 col-sm-6">
+                    <div class="thumbnail">
+                        <img src="<%= gallery.image %>">
+                            <div class="caption">
+                                <b>Caption: </b><i> <%= gallery.caption%> </i><br>
+                            </div>
+                            <a href="/gallery/<%= gallery._id%>">More</a>
+                    </div>
+                </div>
+            <% }); %>
+    </div>
+</div>
+<di
+
+ <% include ../partials/footer %>
